@@ -19,3 +19,27 @@ config :logger, level: :info
 
 # Runtime production configuration, including reading
 # of environment variables, is done on config/runtime.exs.
+
+
+config :spotties, Spotties.Repo,
+  username: "postgres",
+  password: "postgres",
+  database: "spotties_dev",
+  stacktrace: true,
+  show_sensitive_data_on_connection_error: true,
+  pool_size: 10
+
+if Mix.target() == :ios do
+  config :spotties, Spotties.Repo, hostname: "127.0.0.1"
+end
+
+if Mix.target() == :android do
+  config :spotties, Spotties.Repo, hostname: "10.0.2.2"
+end
+
+config :spotties, SpottiesWeb.Endpoint,
+  http: [ip: {127, 0, 0, 1}, port: 0],
+  live_view: [signing_salt: "nt9pr/6W"],
+  secret_key_base: "cVZaz98CBZNGr4dk7XhVqYpW49We6OKdzORLS20peE0ZK8Qv3ex6uOLujx/mXS80",
+  server: true,
+  cache_static_manifest: "priv/static/cache_manifest.json"
