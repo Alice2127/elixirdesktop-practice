@@ -5,10 +5,9 @@ defmodule SpottiesWeb.Endpoint do
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
   @session_options [
-    store: :cookie,
+    store: :ets,
     key: "_spotties_key",
-    signing_salt: "X6SG2jA4",
-    same_site: "Lax"
+    table: :session
   ]
 
   socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
